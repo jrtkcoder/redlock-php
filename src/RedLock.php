@@ -21,11 +21,13 @@ class RedLock
         $this->quorum  = min(count($servers), (count($servers) / 2 + 1));
     }
 
-    public function lock($resource, $ttl)
+    public function lock($resource, $ttl, $token)
     {
         $this->initInstances();
-
-        $token = uniqid();
+		if(!$token){
+			$token = uniqid();
+		}
+        
         $retry = $this->retryCount;
 
         do {

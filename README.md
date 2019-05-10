@@ -7,14 +7,20 @@ This library implements the Redis-based distributed lock manager algorithm [desc
 To create a lock manager:
 
 ```php
-
+/*
+ *官方调用方式
 $servers = [
     ['127.0.0.1', 6379, 0.01],
     ['127.0.0.1', 6389, 0.01],
     ['127.0.0.1', 6399, 0.01],
 ];
-
 $redLock = new RedLock($servers);
+*/
+//自定义，改造后调用方式
+$servers = [
+    parse_url(C('REDIS_DSN'))
+];
+$redLock = new \RedLock\RedLock($servers);
 
 ```
 
@@ -22,7 +28,7 @@ To acquire a lock:
 
 ```php
 
-$lock = $redLock->lock('my_resource_name', 1000);
+$lock = $redLock->lock('my_resource_name', 1000, $token);
 
 ```
 
