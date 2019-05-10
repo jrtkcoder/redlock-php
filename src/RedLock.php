@@ -1,5 +1,5 @@
 <?php
-
+namespace RedLock;
 class RedLock
 {
     private $retryDelay;
